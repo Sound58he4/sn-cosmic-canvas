@@ -63,16 +63,20 @@ const AboutSection = () => {
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
-                className="glass-card-hover p-5 text-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.6 + i * 0.1 }}
+                className="glass-card-hover p-5 text-center relative overflow-hidden group"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={inView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ delay: 0.6 + i * 0.15, type: "spring", stiffness: 200 }}
+                whileHover={{ scale: 1.05, y: -4 }}
               >
-                <div className="text-2xl mb-1">{stat.icon}</div>
-                <div className="font-heading text-2xl font-bold text-secondary">
-                  {stat.value}
+                <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative z-10">
+                  <div className="text-3xl mb-2">{stat.icon}</div>
+                  <div className="font-heading text-3xl font-bold text-secondary drop-shadow-[0_0_8px_hsl(51_100%_50%/0.3)]">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">{stat.label}</div>
                 </div>
-                <div className="text-xs text-muted-foreground">{stat.label}</div>
               </motion.div>
             ))}
           </div>
