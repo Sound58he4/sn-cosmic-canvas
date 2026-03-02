@@ -33,12 +33,13 @@ const AboutSection = () => {
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <div className="rounded-2xl overflow-hidden border-2 border-secondary/30 gold-glow">
+        <div className="rounded-2xl overflow-hidden border-2 border-secondary/30 gold-glow relative">
             <img
               src={aboutImg}
               alt="Selvarasan lifestyle"
-              className="w-full h-[400px] md:h-[500px] object-cover"
+              className="w-full h-[400px] md:h-[500px] object-cover brightness-75 contrast-110 saturate-90"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
           </div>
         </motion.div>
 
