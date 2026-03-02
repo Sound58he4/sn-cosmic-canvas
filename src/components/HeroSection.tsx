@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Linkedin, Github, Instagram, Mail } from "lucide-react";
+import { Linkedin, Github, Instagram, Mail, Download } from "lucide-react";
 import heroImg from "@/assets/hero-headshot.jpeg";
+import resumePdf from "@/assets/resume.pdf";
 import ParticleBackground from "./ParticleBackground";
 
 const titles = [
@@ -50,7 +51,7 @@ const HeroSection = () => {
           className="mx-auto mb-8 relative w-40 h-40 md:w-48 md:h-48"
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 2.3 }}
+          transition={{ duration: 0.6, delay: 1.4 }}
         >
           <div className="absolute inset-0 rounded-full gold-ring-animated p-1">
             <div className="w-full h-full rounded-full overflow-hidden bg-background">
@@ -68,7 +69,7 @@ const HeroSection = () => {
           className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold mb-4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 2.5 }}
+          transition={{ duration: 0.6, delay: 1.6 }}
         >
           SELVARASAN{" "}
           <span className="text-gradient-gold">N</span>
@@ -79,7 +80,7 @@ const HeroSection = () => {
           className="h-8 md:h-10 mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.8 }}
+          transition={{ delay: 1.8 }}
         >
           <span className="font-body text-lg md:text-xl text-primary">
             {text}
@@ -92,10 +93,18 @@ const HeroSection = () => {
           className="flex flex-wrap justify-center gap-4 mb-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3 }}
+          transition={{ delay: 1.9 }}
         >
           <a href="#projects" className="btn-gold">View My Work</a>
           <a href="#contact" className="btn-blue-outline">Contact Me</a>
+          <a 
+            href={resumePdf} 
+            download="Selvarasan_N_Resume.pdf" 
+            className="btn-blue-outline flex items-center gap-2"
+          >
+            <Download size={18} />
+            Download CV
+          </a>
         </motion.div>
 
         {/* Social Icons */}
@@ -103,7 +112,7 @@ const HeroSection = () => {
           className="flex justify-center gap-5"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 3.2 }}
+          transition={{ delay: 2.0 }}
         >
           {socials.map(({ icon: Icon, href }) => (
             <a

@@ -8,6 +8,7 @@ const navItems = [
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
   { label: "Education", href: "#education" },
+  { label: "Certificates", href: "#certificates" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -28,7 +29,7 @@ const Navbar = () => {
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6, delay: 2.2 }}
+      transition={{ duration: 0.5, delay: 1.3 }}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
         <a href="#" className="font-heading text-2xl font-bold text-gradient-gold">

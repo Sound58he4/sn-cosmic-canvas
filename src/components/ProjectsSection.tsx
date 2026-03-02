@@ -1,9 +1,10 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Apple, Monitor, CheckCircle } from "lucide-react";
 
 const projects = [
   {
-    icon: "🍎",
+    icon: Apple,
     title: "Bago AI Fit",
     subtitle: "Nutritional Platform",
     tech: ["Angular", "Flutter", ".NET Core", "Azure SQL", "Firebase", "Azure OpenAI", "Razorpay"],
@@ -17,7 +18,7 @@ const projects = [
     ],
   },
   {
-    icon: "🖥️",
+    icon: Monitor,
     title: "Vendor Zone",
     subtitle: "IT Asset Management",
     tech: ["ASP.NET Core", "Angular", "SQL Server", "EF Core"],
@@ -55,7 +56,7 @@ const ProjectsSection = () => {
             transition={{ delay: i * 0.2 }}
             whileHover={{ y: -5 }}
           >
-            <div className="text-3xl mb-3">{proj.icon}</div>
+            <div className="text-secondary mb-3"><proj.icon size={28} /></div>
             <h3 className="font-heading text-xl font-bold text-foreground mb-1">
               {proj.title}
             </h3>
@@ -75,7 +76,7 @@ const ProjectsSection = () => {
 
             {proj.playStore && (
               <div className="mb-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/50 border border-border text-xs text-muted-foreground">
-                ✅ Published on Google Play Store
+                <CheckCircle size={14} className="text-green-500" /> Published on Google Play Store
               </div>
             )}
 

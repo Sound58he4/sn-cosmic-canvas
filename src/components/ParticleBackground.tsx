@@ -12,23 +12,34 @@ const ParticleBackground = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
+    // Reduced particle count for better performance
     const particles: { x: number; y: number; vx: number; vy: number; size: number; color: string; alpha: number }[] = [];
-    const count = Math.min(80, Math.floor(window.innerWidth / 15));
+    const count = Math.min(40, Math.floor(window.innerWidth / 30));
 
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
         size: Math.random() * 2 + 0.5,
         color: Math.random() > 0.5 ? "#FFD700" : "#00D4FF",
-        alpha: Math.random() * 0.5 + 0.2,
+        alpha: Math.random() * 0.4 + 0.1,
       });
     }
 
     let animId: number;
-    const draw = () => {
+    let lastTime = 0;
+    const fps = 30; // Limit to 30 FPS for better performance
+    const interval = 1000 / fps;
+
+    const draw = (currentTime: number) => {
+      animId = requestAnimationFrame(draw);
+      
+      const delta = currentTime - lastTime;
+      if (delta < interval) return;
+      lastTime = currentTime - (delta % interval);
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach((p) => {
         p.x += p.vx;
@@ -42,25 +53,9 @@ const ParticleBackground = () => {
         ctx.globalAlpha = p.alpha;
         ctx.fill();
       });
-
-      // Draw connections
-      ctx.globalAlpha = 0.05;
-      ctx.strokeStyle = "#00D4FF";
-      particles.forEach((a, i) => {
-        particles.slice(i + 1).forEach((b) => {
-          const dist = Math.hypot(a.x - b.x, a.y - b.y);
-          if (dist < 150) {
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        });
-      });
       ctx.globalAlpha = 1;
-      animId = requestAnimationFrame(draw);
     };
-    draw();
+    draw(0);
 
     const handleResize = () => {
       canvas.width = window.innerWidth;

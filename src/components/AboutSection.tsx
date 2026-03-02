@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { Award, Smartphone, Rocket, Code2 } from "lucide-react";
 import aboutImg from "@/assets/about-lifestyle.jpeg";
 
 const stats = [
-  { icon: "🏆", value: "6+", label: "Months Experience" },
-  { icon: "📱", value: "2", label: "Apps Published" },
-  { icon: "🚀", value: "2", label: "Major Projects" },
-  { icon: "💻", value: "5+", label: "Technologies" },
+  { icon: Award, value: "6+", label: "Months Experience" },
+  { icon: Smartphone, value: "2", label: "Apps Published" },
+  { icon: Rocket, value: "2", label: "Major Projects" },
+  { icon: Code2, value: "5+", label: "Technologies" },
 ];
 
 const AboutSection = () => {
@@ -37,6 +38,8 @@ const AboutSection = () => {
             <img
               src={aboutImg}
               alt="Selvarasan lifestyle"
+              loading="lazy"
+              decoding="async"
               className="w-full h-[400px] md:h-[500px] object-cover brightness-75 contrast-110 saturate-90"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
@@ -71,7 +74,7 @@ const AboutSection = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative z-10">
-                  <div className="text-3xl mb-2">{stat.icon}</div>
+                  <div className="text-secondary mb-2"><stat.icon size={28} /></div>
                   <div className="font-heading text-3xl font-bold text-secondary drop-shadow-[0_0_8px_hsl(51_100%_50%/0.3)]">
                     {stat.value}
                   </div>

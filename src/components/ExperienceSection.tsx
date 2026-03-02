@@ -1,12 +1,13 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Building2, Briefcase } from "lucide-react";
 
 const experiences = [
   {
     title: "Trainee Engineer",
     company: "Nallas Corporation",
     link: "https://nallas.com/careers/",
-    icon: "🏢",
+    icon: Building2,
     points: [
       "Built secure RESTful APIs with ASP.NET Core + EF Core",
       "Enhanced UI/UX with Angular, Agile methodology",
@@ -16,7 +17,7 @@ const experiences = [
   {
     title: "Full Stack Developer Intern",
     company: "Solar Secure Solutions",
-    icon: "💼",
+    icon: Briefcase,
     points: [
       "Responsive web apps: HTML5, CSS3, JavaScript",
       "Client portfolio websites, cybersecurity expert profiles",
@@ -55,7 +56,7 @@ const ExperienceSection = () => {
             <div className={`absolute top-6 w-3 h-3 rounded-full bg-secondary gold-glow left-[10px] md:left-auto ${i % 2 === 0 ? "md:right-[-6px]" : "md:left-[-6px]"}`} />
 
             <div className="glass-card-hover p-6">
-              <div className="text-2xl mb-2">{exp.icon}</div>
+              <div className="text-secondary mb-2"><exp.icon size={24} /></div>
               <h3 className="font-heading text-lg font-semibold text-foreground">
                 {exp.title}
               </h3>

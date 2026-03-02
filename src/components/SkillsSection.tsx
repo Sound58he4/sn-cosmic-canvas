@@ -1,29 +1,36 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { Code2, Server, Layout, Database, Cloud, Brain } from "lucide-react";
 
 const skillGroups = [
   {
     title: "Languages",
+    icon: Code2,
     skills: ["C", "C#", "JavaScript", "TypeScript", "SQL", "HTML5", "CSS3"],
   },
   {
     title: "Backend",
+    icon: Server,
     skills: [".NET Core", "ASP.NET Web API", "EF Core", "LINQ", "RESTful APIs"],
   },
   {
     title: "Frontend",
+    icon: Layout,
     skills: ["Angular 12+", "Flutter", "Bootstrap", "SPA"],
   },
   {
     title: "Database",
+    icon: Database,
     skills: ["MSSQL", "Azure SQL", "Firebase Realtime DB"],
   },
   {
     title: "Cloud & DevOps",
+    icon: Cloud,
     skills: ["Azure", "App Services", "Firebase", "CI/CD", "Git", "GitHub"],
   },
   {
     title: "AI & Tools",
+    icon: Brain,
     skills: ["Azure OpenAI", "ChatGPT API", "Gemini AI", "Claude API", "Razorpay", "Postman", "n8n"],
   },
 ];
@@ -51,9 +58,14 @@ const SkillsSection = () => {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: gi * 0.1 }}
           >
-            <h3 className="font-heading text-sm font-semibold text-secondary mb-4 uppercase tracking-wider">
-              {group.title}
-            </h3>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                <group.icon size={20} className="text-secondary" />
+              </div>
+              <h3 className="font-heading text-sm font-semibold text-secondary uppercase tracking-wider">
+                {group.title}
+              </h3>
+            </div>
             <div className="flex flex-wrap gap-2">
               {group.skills.map((skill) => (
                 <span

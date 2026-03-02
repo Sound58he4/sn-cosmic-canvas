@@ -1,24 +1,59 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Mail, Phone, MapPin, Linkedin, Github, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Github, Instagram, Send, Loader2 } from "lucide-react";
 import contactBg from "@/assets/contact-dramatic.jpeg";
+
+// Get your free access key from https://web3forms.com/
+const WEB3FORMS_ACCESS_KEY = "YOUR_ACCESS_KEY_HERE";
 
 const ContactSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const mailto = `mailto:selvarasann09@gmail.com?subject=Portfolio Contact from ${form.name}&body=${form.message}%0A%0AFrom: ${form.email}`;
-    window.open(mailto);
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          subject: `Portfolio Contact from ${form.name}`,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus("success");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch {
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <section id="contact" className="relative py-20 md:py-28" ref={ref}>
       {/* Background */}
       <div className="absolute inset-0">
-        <img src={contactBg} alt="" className="w-full h-full object-cover" />
+        <img src={contactBg} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-background/90" />
       </div>
 
@@ -67,7 +102,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Location</p>
-                <p className="text-sm text-foreground">Namakkal, Tamil Nadu 📍</p>
+                <p className="text-sm text-foreground">Namakkal, Tamil Nadu</p>
               </div>
             </div>
 
@@ -103,16 +138,18 @@ const ContactSection = () => {
               placeholder="Your Name"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full bg-muted/50 border border-border rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+              className="w-full bg-muted/50 border border-border rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors disabled:opacity-50"
               required
+              disabled={isSubmitting}
             />
             <input
               type="email"
               placeholder="Your Email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full bg-muted/50 border border-border rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+              className="w-full bg-muted/50 border border-border rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors disabled:opacity-50"
               required
+              disabled={isSubmitting}
             />
             <textarea
               placeholder="Your Message"
@@ -121,10 +158,35 @@ const ContactSection = () => {
               onChange={(e) => setForm({ ...form, message: e.target.value })}
               className="w-full bg-muted/50 border border-border rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
               required
+              disabled={isSubmitting}
             />
-            <button type="submit" className="btn-gold w-full">
-              Send Message
+            <button 
+              type="submit" 
+              className="btn-gold w-full flex items-center justify-center gap-2"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send size={18} />
+                  Send Message
+                </>
+              )}
             </button>
+            {submitStatus === "success" && (
+              <p className="text-green-500 text-sm text-center">
+                Message sent successfully! I'll get back to you soon.
+              </p>
+            )}
+            {submitStatus === "error" && (
+              <p className="text-red-500 text-sm text-center">
+                Something went wrong. Please try again or email me directly.
+              </p>
+            )}
           </motion.form>
         </div>
       </div>
