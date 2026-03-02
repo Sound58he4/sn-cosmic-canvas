@@ -79,8 +79,8 @@
     @apply py-20 md:py-28 px-4 md:px-8;
   }
   .gold-ring-animated {
-    background: conic-gradient(from 0deg, hsl(51 100% 50%), hsl(40 100% 60%), hsl(51 100% 40%), hsl(51 100% 50%));
-    animation: ring-spin 4s linear infinite;
+    background: linear-gradient(135deg, hsl(51 100% 50%), hsl(40 100% 60%), hsl(51 100% 50%));
+    box-shadow: 0 0 20px hsl(51 100% 50% / 0.4), 0 0 40px hsl(51 100% 50% / 0.2);
   }
   .btn-gold {
     @apply px-8 py-3 rounded-full font-semibold text-sm tracking-wide transition-all duration-300;
